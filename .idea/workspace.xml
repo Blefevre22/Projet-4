@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eff8db08-2202-4355-ad79-c5edea0a621a" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/toto.txt" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Customer.php" afterPath="$PROJECT_DIR$/src/Entity/Customer.php" />
-      <change beforePath="$PROJECT_DIR$/src/Form/CustomerType.php" afterPath="$PROJECT_DIR$/src/Form/CustomerType.php" />
-      <change beforePath="$PROJECT_DIR$/templates/main/index.html.twig" afterPath="$PROJECT_DIR$/templates/main/index.html.twig" />
-    </list>
+    <list default="true" id="eff8db08-2202-4355-ad79-c5edea0a621a" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
