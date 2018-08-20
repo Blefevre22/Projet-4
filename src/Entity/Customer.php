@@ -52,6 +52,11 @@ class Customer
     private $price;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ticket;
+
+    /**
      * @return mixed
      */
     public function getPrice()
@@ -140,6 +145,18 @@ class Customer
     public function setBooking(?Booking $booking): self
     {
         $this->booking = $booking;
+
+        return $this;
+    }
+
+    public function getTicket(): ?string
+    {
+        return $this->ticket;
+    }
+
+    public function setTicket(string $ticket): self
+    {
+        $this->ticket = $ticket;
 
         return $this;
     }
