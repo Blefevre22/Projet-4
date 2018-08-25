@@ -69,7 +69,9 @@
 		<div class="row centered mt mb">
 			<h1 id="titre">Réservez votre découverte</h1>
 			<div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 gallery">
-                {{ form(form) }}
+                {{ form_start(form) }}
+                {{ form_row(form.customer) }}
+                {{ form_end(form) }}
                 <a href="#" id="add_ticket" class="btn btn-default">Ajouter un billet</a>
 			</div>
 
@@ -133,23 +135,23 @@
 
   <script>
 
-      $(document).ready(function() {
-          $('#booking_customer_0_birthDate').change(function () {
-              var birthDate = $('#booking_customer_0_birthDate');
-              console.log(birthDate.val());
+
+          function myScript(id) {
+              console.log($(id).attr('id'));
               $.ajax({
                   url: "{{ path('jquery-price') }}",
                   method: 'GET',
-                  data: "date=" + birthDate.val(),
+                  data: "date=" + $(id).val(),
                   success: function (data) {
                       if($('.tarif').length){
                           $('.tarif').remove();
                       }
-                      $('#booking_customer_0 .checkbox').after("<p class='tarif'>Tarif : "+data['data']+"€</p>");
+                      console.log('fonctionne');
+                      //$(id).after("<p class='tarif'>Tarif : "+data.value()+"€</p>");
                   }
               })
-          });
-      });
+          };
+
   </script>
   </body>
 </html>
