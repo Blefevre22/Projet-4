@@ -62,7 +62,7 @@ class CustomerType extends AbstractType
                 'label' => 'Date de naissance ',
                 'help' => 'Entrez votre date de naissance, défini votre tarif',
                 'widget' => 'single_text',
-                'attr' => array('onchange' => 'myScript(id)')
+                'attr' => array('class' => 'tinymce')
             ))
             ->add('reduced', CheckboxType::class, array(
                 'label' => 'Tarif réduit',

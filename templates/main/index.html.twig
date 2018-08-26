@@ -134,24 +134,34 @@
 
 
   <script>
+      $( document ).ready(function() {
+          $('.tinymce').change(function () {
+              console.log('focntionne');
 
-
-          function myScript(id) {
-              console.log($(id).attr('id'));
-              $.ajax({
-                  url: "{{ path('jquery-price') }}",
-                  method: 'GET',
-                  data: "date=" + $(id).val(),
-                  success: function (data) {
-                      if($('.tarif').length){
-                          $('.tarif').remove();
-                      }
-                      console.log('fonctionne');
-                      //$(id).after("<p class='tarif'>Tarif : "+data.value()+"€</p>");
-                  }
-              })
-          };
-
+          })
+      })
   </script>
+
+	<div class="container">
+		<div class="row">
+			<div class='col-sm-6'>
+				<div class="form-group">
+					<div class='input-group date' id='datetimepicker3'>
+						<input type='text' class="form-control" />
+						<span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker3').datetimepicker({
+                        format: 'LT'
+                    });
+                });
+			</script>
+		</div>
+	</div>
   </body>
 </html>

@@ -22,10 +22,19 @@ class BookingType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $localtime = localtime();
+        $today = ($localtime[5]+1900);
+        if($localtime[4] < 10) {
+            $today .= '-0' . $localtime[4];
+        }else{
+            $today .= '-' . $localtime[4];
+        }
+        $today .= '-'.$localtime[3];
         $builder
             ->add('registrationDate', DateType::class, array(
                 'widget' => 'single_text',
-                'label' => 'Jour de la visite'
+                'label' => 'Jour de la visite',
+                'attr' => array('min' => $today)
             ))
             ->add('email', EmailType::class, array(
                 'attr' => array(
