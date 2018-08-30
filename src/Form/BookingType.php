@@ -13,7 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
@@ -30,11 +30,11 @@ class BookingType extends AbstractType
             $today .= '-' . $localtime[4];
         }
         $today .= '-'.$localtime[3];
+        $date = new \datetime();
         $builder
-            ->add('registrationDate', DateType::class, array(
-                'widget' => 'single_text',
+            ->add('registrationDate', TextType::class, array(
                 'label' => 'Jour de la visite',
-                'attr' => array('min' => $today)
+                'attr' => array('class' => 'datepickerBooking')
             ))
             ->add('email', EmailType::class, array(
                 'attr' => array(
