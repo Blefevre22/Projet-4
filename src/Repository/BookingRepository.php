@@ -47,4 +47,17 @@ class BookingRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getCheckLimitBooking($date)
+    {
+        $qb = $this->createQueryBuilder('b');
+        $qb
+            ->select('COUNT(b)')
+            ->where(':date = b.registrationDate')
+            ->setParameter('date', $date)
+        ;
+        return $qb
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }

@@ -146,6 +146,19 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ path('jquery-checkDay') }}",
+            method: 'GET',
+            data: "date=" + currentDate,
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    });
+</script>
+
 
 
 </body>

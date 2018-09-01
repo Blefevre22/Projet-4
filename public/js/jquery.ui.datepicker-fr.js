@@ -23,10 +23,13 @@ jQuery(function($){
         numberOfMonths: 1,
         showButtonPanel: true
     });
+    var disabledDates = ["05-01","11-01","12-25"]
     $('.datepickerBooking').datepicker({
-        beforeShowDay: function(date) {
-            var day = date.getDay();
-            return [(day != 2)];
+        //Grise les mardi et les jours de fermeture
+        beforeShowDay: function(date){
+            var string = jQuery.datepicker.formatDate('mm-dd', date),
+                day = date.getDay();
+            return [(day != 2)&&disabledDates.indexOf(string) == -1 ]
         },
         closeText: 'Fermer',
         prevText: '&#x3c;Préc',

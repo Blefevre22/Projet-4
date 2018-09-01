@@ -86,4 +86,15 @@ class MainController extends Controller
         $data = $this->requestPrices($request->query->get('date'));
         return new JsonResponse(array('data' => $data));
     }
+
+    /**
+     * @Route("/jquery-checkDay", name="jquery-checkDay")
+     */
+    public function jqueryCheckDay(Request $request)
+    {
+        var_dump($request);
+        $em = $this->getDoctrine()->getManager();
+        $checkBooking =  $em->getRepository(Booking::class)->getCheckLimitBooking($request);
+        return new JsonResponse(array('data' => $checkBooking));
+    }
 }
