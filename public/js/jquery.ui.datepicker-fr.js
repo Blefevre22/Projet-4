@@ -1,16 +1,18 @@
-jQuery(function($){
+function datePicker (dates) {
+
+    console.log(dates);
     $('.datepickerBirthday').datepicker({
         closeText: 'Fermer',
         prevText: '&#x3c;Préc',
         nextText: 'Suiv&#x3e;',
         currentText: 'Aujourd\'hui',
-        monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
-            'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
-        monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Jun',
-            'Jul','Aou','Sep','Oct','Nov','Dec'],
-        dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
-        dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
-        dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+        monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
+            'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
+        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun',
+            'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+        dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+        dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
         weekHeader: 'Sm',
         dateFormat: 'dd/mm/yy',
         changeYear: true,
@@ -23,25 +25,27 @@ jQuery(function($){
         numberOfMonths: 1,
         showButtonPanel: true
     });
-    var disabledDates = ["05-01","11-01","12-25"]
+    var disabledDates = dates;
+    console.log(disabledDates);
     $('.datepickerBooking').datepicker({
         //Grise les mardi et les jours de fermeture
-        beforeShowDay: function(date){
+        beforeShowDay: function (date) {
             var string = jQuery.datepicker.formatDate('mm-dd', date),
                 day = date.getDay();
-            return [(day != 2)&&disabledDates.indexOf(string) == -1 ]
+
+            return [(day != 2) && disabledDates.indexOf(string) == -1]
         },
         closeText: 'Fermer',
         prevText: '&#x3c;Préc',
         nextText: 'Suiv&#x3e;',
         currentText: 'Aujourd\'hui',
-        monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
-            'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
-        monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Jun',
-            'Jul','Aou','Sep','Oct','Nov','Dec'],
-        dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
-        dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
-        dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+        monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
+            'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
+        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun',
+            'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+        dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+        dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
         weekHeader: 'Sm',
         dateFormat: 'dd/mm/yy',
         firstDay: 1,
@@ -53,4 +57,4 @@ jQuery(function($){
         numberOfMonths: 1,
         showButtonPanel: true
     });
-});
+}

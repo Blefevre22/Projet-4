@@ -23,6 +23,13 @@ class MainController extends Controller
         $booking = new Booking();
         //Appel de l'entity Manager
         $em = $this->getDoctrine()->getManager();
+        //Vérification des journées à 1000 réservations
+        //$checkBookings =  $em->getRepository(Booking::class)->getCheckLimitBooking();
+        $disableDate = [];
+        //foreach($checkBookings as $booking){
+          //  $disableDate[] = $booking['registrationDate']->format('Y-m-d');
+        //}
+        //dump($disableDate);
         //Création du formulaire basé sur Booking
         $form = $this->createform(BookingType::class, $booking);
         //Si le parametre request est une méthode POST
@@ -37,7 +44,8 @@ class MainController extends Controller
         }
         //Appel de la vue
         return $this->render('main/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            //'disableDate' => $disableDate
         ]);
     }
     public function sendMail($booking)
@@ -90,11 +98,10 @@ class MainController extends Controller
     /**
      * @Route("/jquery-checkDay", name="jquery-checkDay")
      */
-    public function jqueryCheckDay(Request $request)
+    public function jqueryCheckDay()
     {
-        var_dump($request);
         $em = $this->getDoctrine()->getManager();
-        $checkBooking =  $em->getRepository(Booking::class)->getCheckLimitBooking($request);
-        return new JsonResponse(array('data' => $checkBooking));
+        $checkBooking =  $em->getRepository(Booking::class)->getCheckLimitBooking();
+        return $checkBooking;
     }
 }
