@@ -237,7 +237,7 @@
       <path value="$PROJECT_DIR$/vendor/stripe/stripe-php" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
@@ -374,15 +374,15 @@
       <workItem from="1534789047705" duration="3904000" />
       <workItem from="1535101832986" duration="10404000" />
       <workItem from="1535300574205" duration="610000" />
-      <workItem from="1535390533233" duration="41217000" />
+      <workItem from="1535390533233" duration="41285000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185991000" />
+    <option name="totallyTimeSpent" value="186059000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29425114" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

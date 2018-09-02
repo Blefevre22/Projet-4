@@ -1,0 +1,71 @@
+[33mcommit 4dcbc4aace7349e769f90f2fdefb07c794cb2f29[m[33m ([m[1;36mHEAD -> [m[1;32mstripe[m[33m)[m
+Author: Blefevre22 <benoit.lefevre22@gmail.com>
+Date:   Sun Sep 2 22:51:12 2018 +0200
+
+    apres test datepicker
+
+[33mcommit 83a5459c17610e22884c0cdfeb73e7a8d6d13960[m
+Author: Blefevre22 <benoit.lefevre22@gmail.com>
+Date:   Sun Sep 2 22:49:06 2018 +0200
+
+    datepicker ok
+
+[33mcommit 9b1243d08d1f932d313880bc47b8ec090aa0bad5[m
+Author: Blefevre22 <benoit.lefevre22@gmail.com>
+Date:   Sun Sep 2 22:47:12 2018 +0200
+
+    datepicker ok
+
+[33mcommit d0e6abd1395279bb6c35e47631a5896a03c2a92a[m
+Author: Blefevre22 <benoit.lefevre22@gmail.com>
+Date:   Sun Sep 2 21:01:08 2018 +0200
+
+    installation stripe
+
+[33mcommit 37b66b4002b9b0cc73852ea709e97e750de0753b[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Blefevre22 <benoit.lefevre22@gmail.com>
+Date:   Sat Sep 1 11:52:52 2018 +0200
+
+    ajout d'un counter sur la table booking
+
+[33mcommit 420a3e9ded8c4745501555d7a0b2dfe86cc00a8a[m
+Author: Blefevre22 <benoit.lefevre22@gmail.com>
+Date:   Thu Aug 30 19:54:38 2018 +0200
+
+    Datepicker ok
+
+[33mcommit 0fb449bb9878234ca3938bc5dd4d6851eebfecbc[m
+Author: Blefevre22 <benoit.lefevre22@gmail.com>
+Date:   Wed Aug 29 20:30:14 2018 +0200
+
+    Jquery price ok
+
+[33mcommit 668c410c6c1087f1bb1851b98223c0ca6c96e5a6[m
+Author: Blefevre22 <benoit.lefevre22@gmail.com>
+Date:   Sun Aug 26 18:14:20 2018 +0200
+
+    Sauvegarde du 26-08-18
+
+[33mcommit 20641e9cf3a2b3346f78d6dcc4dab68c05f45993[m
+Author: Blefevre22 <benoit.lefevre22@gmail.com>
+Date:   Sat Aug 25 11:00:13 2018 +0200
+
+    Sauvegarde version mentor
+
+[33mcommit 0fa55273c199b9843b0b298cf3a9a412419fc2db[m[33m ([m[1;31morigin/Create_Jquery[m[33m, [m[1;32mCreate_Jquery[m[33m)[m
+Author: Benoit LEFEVRE <benoit.lefevre22@gmail.com>
+Date:   Mon Aug 20 19:28:26 2018 +0200
+
+    sauvegarde avant cours du 20-08-18
+
+[33mcommit e13e0bf1d8397cfcbb68531f86989ea41a9f788f[m
+Author: Benoit LEFEVRE <benoit.lefevre22@gmail.com>
+Date:   Mon Aug 20 19:01:14 2018 +0200
+
+    sauvegarde avant cours du 20-08-18
+
+[33mcommit 29d7ecfbdc1ca8c98947873019cd15dd1dd28fd1[m
+Author: Benoit LEFEVRE <benoit.lefevre22@gmail.com>
+Date:   Mon Aug 20 16:11:48 2018 +0200
+
+    Sauvegarde initiale du projet
