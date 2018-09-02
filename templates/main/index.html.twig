@@ -117,7 +117,6 @@
 	</div><! --/container -->
 </div><! --/social -->
 
-<span id="price">tarif :</span>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -129,7 +128,7 @@
 <script>
     $(document).ready(function() {
         //Vérification des jours à plus de 1000 réservations
-        datePicker ();
+        datePicker ('{{disableDate|json_encode()}}');
         $( '#booking' ).on( "change", ".tinymce", function() {
             var birthDate = this.id,
                 birth = $('#'+birthDate),

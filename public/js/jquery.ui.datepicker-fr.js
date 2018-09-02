@@ -1,6 +1,4 @@
 function datePicker (dates) {
-
-    console.log(dates);
     $('.datepickerBirthday').datepicker({
         closeText: 'Fermer',
         prevText: '&#x3c;Préc',
@@ -26,7 +24,6 @@ function datePicker (dates) {
         showButtonPanel: true
     });
     var disabledDates = dates;
-    console.log(disabledDates);
     $('.datepickerBooking').datepicker({
         //Grise les mardi et les jours de fermeture
         beforeShowDay: function (date) {

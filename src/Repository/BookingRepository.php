@@ -53,7 +53,7 @@ class BookingRepository extends ServiceEntityRepository
         $qb
             ->select('b.registrationDate')
             ->where(':now <= b.registrationDate')
-            ->andWhere('b.counter > 1')
+            ->andWhere('b.counter > 1000')
             ->setParameter('now',new \Datetime())
         ;
         return $qb

@@ -24,14 +24,17 @@ class MainController extends Controller
         //Appel de l'entity Manager
         $em = $this->getDoctrine()->getManager();
         //Vérification des journées à 1000 réservations
-        //$checkBookings =  $em->getRepository(Booking::class)->getCheckLimitBooking();
+        $checkBookings =  $em->getRepository(Booking::class)->getCheckLimitBooking();
         $disableDate = [];
-        //foreach($checkBookings as $booking){
-          //  $disableDate[] = $booking['registrationDate']->format('Y-m-d');
-        //}
-        //dump($disableDate);
+        foreach($checkBookings as $book){
+            $disableDate[] = $book['registrationDate']->format('Y-m-d');
+        }
+        dump($disableDate);
         //Création du formulaire basé sur Booking
-        $form = $this->createform(BookingType::class, $booking);
+        $form = $this->createForm(BookingType::class, $booking, array(
+            'action' => $this->generateUrl('stripe-payment'),
+            'method' => 'GET',
+        ));
         //Si le parametre request est une méthode POST
         if ($request->isMethod('POST')) {
             //Récupération des valeurs dans le formulaire
@@ -45,7 +48,7 @@ class MainController extends Controller
         //Appel de la vue
         return $this->render('main/index.html.twig', [
             'form' => $form->createView(),
-            //'disableDate' => $disableDate
+            'disableDate' => $disableDate
         ]);
     }
     public function sendMail($booking)
@@ -103,5 +106,14 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
         $checkBooking =  $em->getRepository(Booking::class)->getCheckLimitBooking();
         return $checkBooking;
+    }
+    /**
+     * @Route("/stripe-payment", name="stripe-payment")
+     */
+    public function stripePayment()
+    {
+        return $this->render('main/about.html.twig', [
+
+        ]);
     }
 }
