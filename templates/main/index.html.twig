@@ -64,6 +64,7 @@
 		<h1 id="titre">Réservez votre découverte</h1>
 		<div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 gallery
                 {{ form(form) }}
+
                 <a href="#" id="add_ticket" class="btn btn-default">Ajouter un billet</a>
 	</div>
 
@@ -116,7 +117,6 @@
 	</div><! --/container -->
 </div><! --/social -->
 
-<span id="price">tarif :</span>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -127,6 +127,10 @@
 <script src="{{ asset('js/jquery.ui.datepicker-fr.js') }}"></script>
 <script>
     $(document).ready(function() {
+        //Vérification des jours à plus de 1000 réservations
+        $( '#booking' ).on( "mousedown", ".tinymce", function() {
+            datePicker('{{ disableDate|json_encode() }}');
+        });
         $( '#booking' ).on( "change", ".tinymce", function() {
             var birthDate = this.id,
                 birth = $('#'+birthDate),
@@ -134,32 +138,20 @@
             $.ajax({
                 url: "{{ path('jquery-price') }}",
                 method: 'GET',
-                data: "date="+'#'+birth.val(),
+                data: "date="+birth.val(),
                 success: function (data) {
-                    console.log(data)
                     if($('#'+idParent+' .tarif').length){
                         $('#'+idParent+' .tarif').remove();
                     }
-                    $('#'+idParent+' .checkbox').after("<p class='tarif'>"+data.data+'€</p>');
+                    $('#'+idParent+' .checkbox').after("<p class='tarif'>Tarif: "+data.data+'€</p>');
                 }
             })
         });
     });
+
 </script>
 <script>
-    $(document).ready(function() {
-        $.ajax({
-            url: "{{ path('jquery-checkDay') }}",
-            method: 'GET',
-            data: "date=" + currentDate,
-            success: function (data) {
-                console.log(data);
-            }
-        });
-    });
+
 </script>
-
-
-
 </body>
 </html>

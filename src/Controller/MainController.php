@@ -15,7 +15,7 @@ use Swift_Mailer;
 class MainController extends Controller
 {
     /**
-     * @Route("/", name="main")
+     * @Route("/", name="main ")
      */
     public function index(Request $request)
     {
@@ -23,8 +23,18 @@ class MainController extends Controller
         $booking = new Booking();
         //Appel de l'entity Manager
         $em = $this->getDoctrine()->getManager();
+        //Vérification des journées à 1000 réservations
+        $checkBookings =  $em->getRepository(Booking::class)->getCheckLimitBooking();
+        $disableDate = [];
+        //Boucle sur chaque dates et les ajoutes au tableau
+        foreach($checkBookings as $book){
+            $disableDate[] = $book['registrationDate']->format('Y-m-d');
+        }
         //Création du formulaire basé sur Booking
-        $form = $this->createform(BookingType::class, $booking);
+        $form = $this->createForm(BookingType::class, $booking, array(
+            'action' => $this->generateUrl('stripe-payment'),
+            'method' => 'GET',
+        ));
         //Si le parametre request est une méthode POST
         if ($request->isMethod('POST')) {
             //Récupération des valeurs dans le formulaire
@@ -37,7 +47,8 @@ class MainController extends Controller
         }
         //Appel de la vue
         return $this->render('main/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'disableDate' => $disableDate
         ]);
     }
     public function sendMail($booking)
@@ -67,9 +78,7 @@ class MainController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $today = new \DateTime();
-        if(is_string($date)) {
-           $date = new \DateTime($date);
-        }
+        $date = new \DateTime($date);
         $birthday = new \DateTime($date->format('Y-m-d'));
         $tabTimeAge = $today->diff($birthday);
         $tabTimeAge->format('Y');
@@ -90,11 +99,19 @@ class MainController extends Controller
     /**
      * @Route("/jquery-checkDay", name="jquery-checkDay")
      */
-    public function jqueryCheckDay(Request $request)
+    public function jqueryCheckDay()
     {
-        var_dump($request);
         $em = $this->getDoctrine()->getManager();
-        $checkBooking =  $em->getRepository(Booking::class)->getCheckLimitBooking($request);
-        return new JsonResponse(array('data' => $checkBooking));
+        $checkBooking =  $em->getRepository(Booking::class)->getCheckLimitBooking();
+        return $checkBooking;
+    }
+    /**
+     * @Route("/stripe-payment", name="stripe-payment")
+     */
+    public function stripePayment()
+    {
+        return $this->render('main/about.html.twig', [
+
+        ]);
     }
 }

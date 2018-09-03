@@ -22,15 +22,6 @@ class BookingType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $localtime = localtime();
-        $today = ($localtime[5]+1900);
-        if($localtime[4] < 10) {
-            $today .= '-0' . $localtime[4];
-        }else{
-            $today .= '-' . $localtime[4];
-        }
-        $today .= '-'.$localtime[3];
-        $date = new \datetime();
         $builder
             ->add('registrationDate', TextType::class, array(
                 'label' => 'Jour de la visite',
@@ -48,7 +39,7 @@ class BookingType extends AbstractType
                 'allow_delete' => true,
                 'label'=> 'informations visiteurs'
             ))
-            ->add('save', SubmitType::class);
+            ->add('Passer au paiment', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
