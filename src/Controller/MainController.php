@@ -31,10 +31,7 @@ class MainController extends Controller
             $disableDate[] = $book['registrationDate']->format('Y-m-d');
         }
         //Création du formulaire basé sur Booking
-        $form = $this->createForm(BookingType::class, $booking, array(
-            'action' => $this->generateUrl('stripe-payment'),
-            'method' => 'GET',
-        ));
+        $form = $this->createForm(BookingType::class, $booking);
         //Si le parametre request est une méthode POST
         if ($request->isMethod('POST')) {
             //Récupération des valeurs dans le formulaire
@@ -64,6 +61,7 @@ class MainController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         foreach ($booking->getCustomer() as $customer) {
+            $customer->setBirthDate = new \DateTime($customer->getBirthDate->format('Y-m-d'));
             $price = $this->requestPrices($customer->getBirthDate());
             $customer->setBooking($booking);
             $customer->setPrice($price);

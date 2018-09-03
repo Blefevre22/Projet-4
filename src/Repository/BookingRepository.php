@@ -61,4 +61,18 @@ class BookingRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+    public function getCheckCounter($date)
+    {
+        $qb = $this->createQueryBuilder('b');
+        $qb
+            ->select('b.counter')
+            ->where('b.registrationDate = :date')
+            ->orderBy('b.counter', 'DESC')
+            ->setParameter('date', $date)
+            ;
+        return $qb
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
 }

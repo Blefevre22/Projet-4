@@ -39,7 +39,7 @@ class BookingType extends AbstractType
                 'allow_delete' => true,
                 'label'=> 'informations visiteurs'
             ))
-            ->add('Passer au paiment', SubmitType::class);
+            ->add('save', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
