@@ -15,7 +15,6 @@ use Doctrine\ORM\EntityManagerInterface;
 class CustomerType extends AbstractType
 {
     private $entityManager;
-toto
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;

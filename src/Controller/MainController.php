@@ -15,7 +15,7 @@ use Swift_Mailer;
 class MainController extends Controller
 {
     /**
-     * @Route("/", name="main")
+     * @Route("/", name="main ")
      */
     public function index(Request $request)
     {
@@ -26,10 +26,10 @@ class MainController extends Controller
         //Vérification des journées à 1000 réservations
         $checkBookings =  $em->getRepository(Booking::class)->getCheckLimitBooking();
         $disableDate = [];
+        //Boucle sur chaque dates et les ajoutes au tableau
         foreach($checkBookings as $book){
             $disableDate[] = $book['registrationDate']->format('Y-m-d');
         }
-        dump($disableDate);
         //Création du formulaire basé sur Booking
         $form = $this->createForm(BookingType::class, $booking, array(
             'action' => $this->generateUrl('stripe-payment'),
@@ -78,9 +78,7 @@ class MainController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $today = new \DateTime();
-        if(is_string($date)) {
-           $date = new \DateTime($date);
-        }
+        $date = new \DateTime($date);
         $birthday = new \DateTime($date->format('Y-m-d'));
         $tabTimeAge = $today->diff($birthday);
         $tabTimeAge->format('Y');
