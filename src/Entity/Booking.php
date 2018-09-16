@@ -19,7 +19,7 @@ class Booking
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $registrationDate;
 
@@ -65,12 +65,12 @@ class Booking
         return $this->id;
     }
 
-    public function getRegistrationDate(): ?\DateTimeInterface
+    public function getRegistrationDate()
     {
         return $this->registrationDate;
     }
 
-    public function setRegistrationDate(\DateTimeInterface $registrationDate): self
+    public function setRegistrationDate($registrationDate): self
     {
         $this->registrationDate = $registrationDate;
 

@@ -60,11 +60,17 @@ class MainController extends Controller
     public function validTicket($booking)
     {
         $em = $this->getDoctrine()->getManager();
+        $dateRegistration = new \DateTime($booking->getRegistrationDate());
+        dump($dateRegistration);
+        $booking->setRegistrationDate($dateRegistration);
         foreach ($booking->getCustomer() as $customer) {
-            $customer->setBirthDate = new \DateTime($customer->getBirthDate->format('Y-m-d'));
+            $maxCounter = $em->getRepository(Booking::class)->getCheckCounter($booking->getRegistrationDate());
             $price = $this->requestPrices($customer->getBirthDate());
+            $booking->setCounter($maxCounter + 1);
             $customer->setBooking($booking);
             $customer->setPrice($price);
+            $birthday = new \DateTime($customer->getBirthDate());
+            $customer->setBirthDate($birthday);
         }
         $em->persist($booking);
         $em->flush();
@@ -74,12 +80,12 @@ class MainController extends Controller
      */
     public function requestPrices($date)
     {
+        dump($date);
+        $date = new \DateTime($date);
         $em = $this->getDoctrine()->getManager();
         $today = new \DateTime();
-        $date = new \DateTime($date);
         $birthday = new \DateTime($date->format('Y-m-d'));
         $tabTimeAge = $today->diff($birthday);
-        $tabTimeAge->format('Y');
         $age= $tabTimeAge->y;
         $price =  $em->getRepository(PriceList::class)->getPriceByBirthday($age);
         return $price['price'];

@@ -63,6 +63,7 @@ class BookingRepository extends ServiceEntityRepository
     }
     public function getCheckCounter($date)
     {
+        dump($date);
         $qb = $this->createQueryBuilder('b');
         $qb
             ->select('b.counter')
@@ -72,7 +73,7 @@ class BookingRepository extends ServiceEntityRepository
             ;
         return $qb
             ->getQuery()
-            ->getSingleScalarResult()
+            ->getOneOrNullResult()
             ;
     }
 }

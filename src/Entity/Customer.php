@@ -113,12 +113,12 @@ class Customer
         return $this;
     }
 
-    public function getBirthDate(): ?\DateTimeInterface
+    public function getBirthDate()
     {
         return $this->birthDate;
     }
 
-    public function setBirthDate(\DateTimeInterface $birthDate): self
+    public function setBirthDate($birthDate): self
     {
         $this->birthDate = $birthDate;
 

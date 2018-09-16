@@ -25,7 +25,7 @@ class BookingType extends AbstractType
         $builder
             ->add('registrationDate', TextType::class, array(
                 'label' => 'Jour de la visite',
-                'attr' => array('class' => 'datepickerBooking')
+                'attr' => array('class' => 'datepickerBooking', 'autocomplete'=>'off')
             ))
             ->add('email', EmailType::class, array(
                 'attr' => array(

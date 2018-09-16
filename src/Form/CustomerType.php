@@ -60,7 +60,7 @@ class CustomerType extends AbstractType
             ->add('birthDate', TextType::class, array(
                 'label' => 'Date de naissance ',
                 'help' => 'Entrez votre date de naissance, défini votre tarif ',
-                'attr' => array('class' =>'datepickerBirthday tinymce')
+                'attr' => array('class' =>'datepickerBirthday tinymce', 'autocomplete'=>'off')
             ))
             ->add('reduced', CheckboxType::class, array(
                 'label' => 'Tarif réduit',
