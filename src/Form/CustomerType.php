@@ -55,7 +55,8 @@ class CustomerType extends AbstractType
             ))
             ->add('country', CountryType::class, array(
                 'label' => ' ',
-                'placeholder' => 'France'
+                'placeholder' => 'France',
+                'data' => 'FR',
             ))
             ->add('birthDate', TextType::class, array(
                 'label' => 'Date de naissance ',

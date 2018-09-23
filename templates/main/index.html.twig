@@ -1,153 +1,36 @@
-<!DOCTYPE html>
-<html lang="FR">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<link rel="shortcut icon" href="assets/ico/favicon.ico">
-
-	<title>Musée du Louvre</title>
-
-	<!-- Bootstrap core CSS -->
-	<link href="{{ asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css') }}" rel="stylesheet">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-	<!-- Custom styles for this template -->
-	<link href="{{ asset('css/style.css') }}" rel="stylesheet">
-	<link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-
-</head>
-
-<body>
-<!-- Static navbar -->
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="index.html">LE LOUVRE</a>
-		</div>
-		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="index.html">Home</a></li>
-				<li><a href="about.html">About</a></li>
-				<li><a href="#works">Works</a></li>
-			</ul>
-		</div><!--/.nav-collapse -->
-	</div>
-</div>
-
-
-<div id="headerwrap">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 col-lg-offset-3">
-				<div class="col-lg-4 col-lg-offset-1">
-					<h4>Musée du</h4>
+{% extends "base.html.twig" %}
+	{% block title %}{{ parent() }}{% endblock %}
+{% block body %}
+	<div id="headerwrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+					<div class="col-lg-4 col-lg-offset-1">
+						<h4>Musée du</h4>
+					</div>
+					<h1>LOUVRE</h1>
+					<h4>le plus grand musée d'art et d'antiquités au monde</h4>
 				</div>
-				<h1>LOUVRE</h1>
-				<h4>le plus grand musée d'art et d'antiquités au monde</h4>
-			</div>
-		</div><! --/row -->
-	</div> <!-- /container -->
-</div><! --/headerwrap -->
+			</div><! --/row -->
+		</div> <!-- /container -->
+	</div><! --/headerwrap -->
 
-<section id="works"></section>
-<div class="container">
-	<div class="row centered mt mb">
-		<h1 id="titre">Réservez votre découverte</h1>
-		<div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 gallery">
-            {{ form(form) }}
-			<a href="#" id="add_ticket" class="btn btn-default">Ajouter un billet</a>
-		</div>
-	</div>
-
-	<!--<div class="col-lg-4 col-md-4 col-sm-4 gallery">
-				<a href="work.html"><img src="{{ asset('img/portfolio/folio01.png') }}" class="img-responsive"></a>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 gallery">
-				<a href="work.html"><img src="{{ asset('img/portfolio/folio02.png') }}" class="img-responsive"></a>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 gallery">
-				<a href="work.html"><img src="{{ asset('img/portfolio/folio03.png') }}" class="img-responsive"></a>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 gallery">
-				<a href="work.html"><img src="{{ asset('img/portfolio/folio04.png') }}" class="img-responsive"></a>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 gallery">
-				<a href="work.html"><img src="{{ asset('img/portfolio/folio05.png') }}" class="img-responsive"></a>
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4 gallery">
-				<a href="work.html"><img src="{{ asset('img/portfolio/folio06.png') }}" class="img-responsive"></a>
-			</div>
-			-->
-
-</div><! --/container -->
-
-<div id="social">
 	<div class="container">
-		<div class="row centered">
-			<div class="col-lg-2">
-				<a href="#"><i class="fa fa-dribbble"></i></a>
+		<div class="row centered mt mb">
+			<h1 id="titre">Réservez votre découverte</h1>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 gallery">
+                {{ form(form) }}
+				<a href="#" id="add_ticket" class="btn btn-default">Ajouter un billet</a>
 			</div>
-			<div class="col-lg-2">
-				<a href="#"><i class="fa fa-facebook"></i></a>
-			</div>
-			<div class="col-lg-2">
-				<a href="#"><i class="fa fa-twitter"></i></a>
-			</div>
-			<div class="col-lg-2">
-				<a href="#"><i class="fa fa-linkedin"></i></a>
-			</div>
-			<div class="col-lg-2">
-				<a href="#"><i class="fa fa-instagram"></i></a>
-			</div>
-			<div class="col-lg-2">
-				<a href="#"><i class="fa fa-tumblr"></i></a>
-			</div>
-
-		</div><! --/row -->
+		</div>
 	</div><! --/container -->
-</div><! --/social -->
-
-<!-- Bootstrap core JavaScript
+	<!-- Bootstrap core JavaScript
 ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="{{ asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/addCustomer.js') }}"></script>
-<script src="{{ asset('js/jquery.ui.datepicker-fr.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        //Vérification des jours à plus de 1000 réservations
-        $( '#booking' ).on( "mousedown", ".tinymce", function() {
-            datePicker('{{ disableDate|json_encode() }}');
-        });
-        $( '#booking' ).on( "change", ".tinymce", function() {
-            var birthDate = this.id,
-                birth = $('#'+birthDate),
-                idParent = $(this).parent().parent().attr('id');
-            $.ajax({
-                url: "{{ path('jquery-price') }}",
-                method: 'GET',
-                data: "date="+birth.val(),
-                success: function (data) {
-                    if($('#'+idParent+' .tarif').length){
-                        $('#'+idParent+' .tarif').remove();
-                    }
-                    $('#'+idParent+' .checkbox').after("<p class='tarif'>Tarif: "+data.data+'€</p>');
-                }
-            })
-        });
-    });
-
-</script>
-</body>
-</html>
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="{{ asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/addCustomer.js') }}"></script>
+	<script src="{{ asset('js/jquery.ui.datepicker-fr.js') }}"></script>
+	<script src="{{ asset('js/index.js') }}"></script>
+{% endblock %}

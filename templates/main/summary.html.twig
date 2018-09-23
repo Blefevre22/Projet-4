@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+	{% block title %}{{ parent() }}{% endblock %}
+{% block head %}
+	<link href="{{ asset('css/array.css') }}" rel="stylesheet">
+	<meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+{% endblock %}
+{% block body %}
+	<div style="margin-top:150px"></div>
+	<div class="table-title">
+		<h3>Récapitulatif avant paiement</h3>
+	</div>
+	<div style="text-align:center">
+		<p><strong>Date de réservation :</strong> {{ booking.registrationDate }}</p>
+		<p><strong>Email de réservation :</strong> {{ booking.email }}</p>
+	</div>
+	<table class="table-fill">
+		<caption>Information billets</caption>
+		<thead>
+		<tr>
+			<th class="text-left">Nom</th>
+			<th class="text-left">Prénom</th>
+			<th class="text-left">Pays</th>
+			<th class="text-left">Date de naissance</th>
+			<th class="text-left">Prix</th>
+		</tr>
+		</thead>
+		<tbody class="table-hover">
+        {% for customer in booking.customer %}
+			<tr>
+				<td class="text-left">{{ customer.name }}</td>
+				<td class="text-left">{{ customer.firstname }}</td>
+				<td class="text-left">{{ customer.country }}</td>
+				<td class="text-left">{{ customer.birthdate }}</td>
+				<td class="text-left">15</td>
+			</tr>
+        {% endfor %}
+		</tbody>
+	</table>
+	<table class="table-total">
+		<thead>
+		<tr>
+			<th>Total à payer</th>
+			<td>100</td>
+		</tr>
+		</thead>
+	</table>
+	<form action="stripe-payment" method="POST">
+		<script
+				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				data-key="pk_test_44k5XRB0qcj1dxVRM6gSo4yK"
+				data-amount="999"
+				data-name="Stripe.com"
+				data-email = "{{ booking.email }}"
+				data-description="Example charge"
+				data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+				data-locale="auto"
+				data-zip-code="true">
+		</script>
+	</form>
+{% endblock %}

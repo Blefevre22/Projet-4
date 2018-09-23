@@ -63,7 +63,6 @@ class BookingRepository extends ServiceEntityRepository
     }
     public function getCheckCounter($date)
     {
-        dump($date);
         $qb = $this->createQueryBuilder('b');
         $qb
             ->select('b.counter')

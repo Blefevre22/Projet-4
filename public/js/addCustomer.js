@@ -19,7 +19,7 @@
         } else {
             // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
             $container.children('div').each(function() {
-                addDeleteLink($(this));
+                addDeleteTicket($(this));
             });
         }
 
