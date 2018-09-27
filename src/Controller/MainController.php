@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\BookingType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Swift_Mailer;
 use App\Entity\PriceList;
 use App\Service\PriceRequest;
@@ -66,6 +67,7 @@ class MainController extends Controller
                     $price = $priceRequest->requestPrices($customer->getBirthDate());
                     $customer->setPrice($price);
                 }
+                $this->modelizeBooking($booking);
                 //Methode de validation des tickets
                 //Appel de la vue
                 return $this->render('main/summary.html.twig', [
@@ -73,28 +75,23 @@ class MainController extends Controller
                 ]);
             }
         }
-        return $this->redirectToRoute('main');
     }
     public function modelizeBooking($booking)
     {
+        $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $dateRegistration = str_replace('/','-',$booking->getRegistrationDate());
         $dateRegistration = new \DateTime($dateRegistration);
         $booking->setRegistrationDate($dateRegistration);
+        $maxCounter = $em->getRepository(Booking::class)->getCheckCounter($booking->getRegistrationDate());
+        $booking->setCounter($maxCounter['counter'] + 1);
         foreach ($booking->getCustomer() as $customer) {
-            $maxCounter = $em->getRepository(Booking::class)->getCheckCounter($booking->getRegistrationDate());
-            $booking->setCounter($maxCounter['counter'] + 1);
             $customer->setBooking($booking);
             $birthday = str_replace('/','-',$customer->getBirthDate());
             $birthday = new \DateTime($birthday);
             $customer->setBirthDate($birthday);
         }
-    }
-    public function validBooking($booking)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($booking);
-        $em->flush();
+        $session->set('booking', $booking);
     }
 
     /**
@@ -111,6 +108,7 @@ class MainController extends Controller
      * @Route("/stripe-payment", name="stripe-payment")
      */
     public function stripePayment(Request $request){
+        $session = new Session();
         // Set your secret key: remember to change this to your live secret key in production
 // See your keys here: https://dashboard.stripe.com/account/apikeys
         \Stripe\Stripe::setApiKey("sk_test_aHN2gqymDFMwMHsN0iqJpxpH");
@@ -129,6 +127,10 @@ class MainController extends Controller
             'notice',
             'Your changes were saved!'
         );
+        $booking = $session->get('booking');
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($booking);
+        $em->flush();
         return $this->redirectToRoute('main');
     }
 }
