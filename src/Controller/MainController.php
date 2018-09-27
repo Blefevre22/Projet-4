@@ -10,11 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Swift_Mailer;
 use App\Entity\PriceList;
+use App\Service\PriceRequest;
 
 class MainController extends Controller
 {
     /**
-     * @Route("/", name="main ")
+     * @Route("/", name="main")
      */
     public function index()
     {
@@ -51,7 +52,7 @@ class MainController extends Controller
     /**
      * @Route("/summary", name="summary")
      */
-    public function summary(Request $request)
+    public function summary(PriceRequest $priceRequest, Request $request)
     {
         //Si le parametre request est une méthode POST
         if ($request->isMethod('POST')) {
@@ -61,6 +62,10 @@ class MainController extends Controller
             $form->handleRequest($request);
             //Si le formulaire est valide
             if ($form->isValid()) {
+                foreach ($booking->getCustomer() as $customer) {
+                    $price = $priceRequest->requestPrices($customer->getBirthDate());
+                    $customer->setPrice($price);
+                }
                 //Methode de validation des tickets
                 //Appel de la vue
                 return $this->render('main/summary.html.twig', [
@@ -68,7 +73,7 @@ class MainController extends Controller
                 ]);
             }
         }
-
+        return $this->redirectToRoute('main');
     }
     public function modelizeBooking($booking)
     {
@@ -78,10 +83,8 @@ class MainController extends Controller
         $booking->setRegistrationDate($dateRegistration);
         foreach ($booking->getCustomer() as $customer) {
             $maxCounter = $em->getRepository(Booking::class)->getCheckCounter($booking->getRegistrationDate());
-            $price = $this->requestPrices($customer->getBirthDate());
             $booking->setCounter($maxCounter['counter'] + 1);
             $customer->setBooking($booking);
-            $customer->setPrice($price);
             $birthday = str_replace('/','-',$customer->getBirthDate());
             $birthday = new \DateTime($birthday);
             $customer->setBirthDate($birthday);
@@ -122,5 +125,10 @@ class MainController extends Controller
             'description' => 'Example charge',
             'source' => $token,
         ]);
+        $this->addFlash(
+            'notice',
+            'Your changes were saved!'
+        );
+        return $this->redirectToRoute('main');
     }
 }

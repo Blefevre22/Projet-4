@@ -8,7 +8,7 @@ $(document).ready(function() {
             birth = $('#'+birthDate),
             idParent = $(this).parent().parent().attr('id');
         $.ajax({
-            url: "{{path('jquery-price')}}",
+            url: 'jquery-price',
             method: 'GET',
             data: "date="+birth.val(),
             success: function (data) {

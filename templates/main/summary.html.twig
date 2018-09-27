@@ -25,13 +25,15 @@
 		</tr>
 		</thead>
 		<tbody class="table-hover">
+        {% set total = 0 %}
         {% for customer in booking.customer %}
+            {% set total = total + customer.price %}
 			<tr>
 				<td class="text-left">{{ customer.name }}</td>
 				<td class="text-left">{{ customer.firstname }}</td>
 				<td class="text-left">{{ customer.country }}</td>
 				<td class="text-left">{{ customer.birthdate }}</td>
-				<td class="text-left">15</td>
+				<td class="text-left">{{ customer.price }} €</td>
 			</tr>
         {% endfor %}
 		</tbody>
@@ -40,7 +42,7 @@
 		<thead>
 		<tr>
 			<th>Total à payer</th>
-			<td>100</td>
+			<td>{{ total }} €</td>
 		</tr>
 		</thead>
 	</table>
@@ -54,7 +56,7 @@
 				data-description="Example charge"
 				data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
 				data-locale="auto"
-				data-zip-code="true">
+				data-zip-code="false">
 		</script>
 	</form>
 {% endblock %}

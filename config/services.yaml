@@ -28,3 +28,4 @@ services:
     App\Form\BookingType:
         arguments: ['@doctrine.orm.entity_manager']
         tags: [form.type]
+
