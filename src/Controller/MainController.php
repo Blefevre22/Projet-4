@@ -65,7 +65,13 @@ class MainController extends Controller
             if ($form->isValid()) {
                 foreach ($booking->getCustomer() as $customer) {
                     $price = $priceRequest->requestPrices($customer->getBirthDate());
-                    $customer->setPrice($price);
+                    if($customer->getReduced() === true && $price > 10){
+                        $customer->setPrice($price - 10);
+                    }elseif($customer->getReduced() === true && $price < 10){
+                        $customer->setPrice(0);
+                    }else{
+                        $customer->setPrice($price);
+                    }
                 }
                 $this->modelizeBooking($booking);
                 //Methode de validation des tickets
@@ -118,7 +124,7 @@ class MainController extends Controller
         $token = $_POST['stripeToken'];
 
         $charge = \Stripe\Charge::create([
-            'amount' => 999,
+            'amount' => $request->get('total'),
             'currency' => 'eur',
             'description' => 'Example charge',
             'source' => $token,
@@ -131,6 +137,7 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($booking);
         $em->flush();
+        $session->clear();
         return $this->redirectToRoute('main');
     }
 }

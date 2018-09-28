@@ -69,7 +69,8 @@ class BookingRepository extends ServiceEntityRepository
             ->where('b.registrationDate = :date')
             ->orderBy('b.counter', 'DESC')
             ->setParameter('date', $date)
-            ;
+            ->setMaxResults(1)
+        ;
         return $qb
             ->getQuery()
             ->getOneOrNullResult()

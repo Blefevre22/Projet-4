@@ -21,26 +21,15 @@ class CustomerType extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $localtime = localtime();
-        if ($localtime[2] > 14) {
-            $builder
-                ->add('ticket', ChoiceType::class, array(
-                    'choices' => array(
-                        'Demi-journée' => 'demi_jour'
-                    ),
-                    'expanded' => true
-                ));
-                } else {
-            $builder
-                ->add('ticket', ChoiceType::class, array(
-                    'choices' => array(
-                        'Journée' => 'jour',
-                        'Demi-journée' => 'demi_jour'
-                    ),
-                'expanded' => true
-            ));
-        }
+
         $builder
+            ->add('ticket', ChoiceType::class, array(
+                'choices' => array(
+                    'Journée' => 'jour',
+                    'Demi-journée' => 'demi_jour'
+                ),
+                'expanded' => true
+            ))
             ->add('name', TextType::class, array(
                 'label' => ' ',
                 'attr' => array(

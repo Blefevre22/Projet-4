@@ -50,7 +50,7 @@
 		<script
 				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 				data-key="pk_test_44k5XRB0qcj1dxVRM6gSo4yK"
-				data-amount="999"
+				data-amount="{{ total }}00"
 				data-name="Stripe.com"
 				data-email = "{{ booking.email }}"
 				data-description="Example charge"
@@ -58,5 +58,6 @@
 				data-locale="auto"
 				data-zip-code="false">
 		</script>
+		<input type="hidden" value="{{ total }}00" name="total" id="total">
 	</form>
 {% endblock %}
