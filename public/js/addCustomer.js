@@ -6,8 +6,19 @@
         var index = $container.find(':input').length;
 
         // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-        $('#add_ticket').click(function(e) {
-            addTicket($container);
+        $('#add_ticket').on('click',function(e) {
+            //Si le tarif journée de la première réservation est caché
+            if( $('.radio').eq(0).css('display')== 'none'){
+                //Ajout d'un ticket
+                addTicket($container);
+                //Récupération du nombre de input radio
+                var number = $('.radio').length - 2;
+                //Dissimulation du ticket journée du dernier ajout
+                $('.radio').eq(number).hide()
+            }else{
+                addTicket($container);
+            }
+            $('#add_ticket').insertBefore($('.btn-danger').last())
 
             e.preventDefault(); // évite qu'un # apparaisse dans l'URL
             return false;

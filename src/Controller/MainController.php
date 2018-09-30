@@ -3,14 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Booking;
-use Doctrine\DBAL\Types\DateType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\BookingType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Swift_Mailer;
-use App\Entity\PriceList;
 use App\Service\PriceRequest;
 
 class MainController extends Controller
@@ -26,7 +24,7 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
         //Vérification des journées à 1000 réservations
         $checkBookings =  $em->getRepository(Booking::class)->getCheckLimitBooking();
-        $disableDate = [];
+        $disableDate = ["05-01","11-01","12-25"];
         //Boucle sur chaque dates et les ajoutes au tableau
         foreach($checkBookings as $book){
             $disableDate[] = $book['registrationDate']->format('Y-m-d');
@@ -38,18 +36,11 @@ class MainController extends Controller
         //Appel de la vue
         return $this->render('main/index.html.twig', [
             'form' => $form->createView(),
-            'disableDate' => $disableDate
+            'disableDate' => $disableDate,
+            'toto' => 'toto'
         ]);
     }
-    public function sendMail($booking)
-    {
-        $mailer = $this->container->get('swiftmailer.mailer.default');
-        $message = (new \Swift_Message('Hello Email'))
-            ->setFrom('benoit.lefevre22@gmail.com')
-            ->setTo($booking->getEmail())
-            ->setBody('Bonjour '.$booking->getcustomer()[0]->getName());
-        $mailer->send($message);
-    }
+
     /**
      * @Route("/summary", name="summary")
      */
@@ -134,10 +125,20 @@ class MainController extends Controller
             'Your changes were saved!'
         );
         $booking = $session->get('booking');
+        $this->sendMail($booking);
         $em = $this->getDoctrine()->getManager();
         $em->persist($booking);
         $em->flush();
         $session->clear();
         return $this->redirectToRoute('main');
+    }
+    public function sendMail($booking)
+    {
+        $mailer = $this->container->get('swiftmailer.mailer.default');
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('benoit.lefevre22@gmail.com')
+            ->setTo($booking->getEmail())
+            ->setBody('Bonjour '.$booking->getcustomer()[0]->getName());
+        $mailer->send($message);
     }
 }

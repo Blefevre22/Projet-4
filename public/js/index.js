@@ -1,8 +1,5 @@
 $(document).ready(function() {
-    //Vérification des jours à plus de 1000 réservations
-    $('#booking').on("mousedown", ".date", function () {
-        datePicker('{{ disableDate|json_encode() }}');
-    });
+    $('#add_ticket').insertBefore($('.btn-danger'))
     $('#booking').on("change", ".date", function () {
         var birthDate = this.id,
             birth = $('#' + birthDate),
@@ -21,16 +18,27 @@ $(document).ready(function() {
     });
     $('#booking').on("change", ".datepickerBooking", function () {
         var registration_date = $('#booking_registrationDate');
-        var halfDay = $('.radio').eq(0);
+        var halfDay = $('.radio');
+        //console.log(halfDay);
         $.ajax({
             url: 'jquery-ticket',
             method: 'GET',
             data: "date=" + registration_date.val(),
             success: function (data) {
                 if (data['data'] === true) {
-                    halfDay.hide();
+                    $.each(halfDay, function () {
+                        if(this['textContent'] === ' Journée'){
+                            $( this ).hide();
+                        }else{
+                            $( '#booking_customer_0_ticket_1' ).attr('checked',true);
+                        }
+                    })
                 }else{
-                    halfDay.show();
+                    halfDay.each(function() {
+                        if(this['textContent'] === ' Journée'){
+                            $( this ).show();
+                        }
+                    });
                 }
             }
         });
