@@ -122,7 +122,7 @@ class MainController extends Controller
         ]);
         $this->addFlash(
             'notice',
-            'Your changes were saved!'
+            'Votre réservation est enregistrée !'
         );
         $booking = $session->get('booking');
         $this->sendMail($booking);
@@ -135,10 +135,17 @@ class MainController extends Controller
     public function sendMail($booking)
     {
         $mailer = $this->container->get('swiftmailer.mailer.default');
-        $message = (new \Swift_Message('Hello Email'))
+        $message = (new \Swift_Message('Louvre : votre réservation'))
             ->setFrom('benoit.lefevre22@gmail.com')
             ->setTo($booking->getEmail())
-            ->setBody('Bonjour '.$booking->getcustomer()[0]->getName());
+            ->setBody(
+                $this->renderView(
+                // templates/emails/registration.html.twig
+                    'emails/registration.html.twig',
+                    array('booking' => $booking)
+                ),
+                'text/html'
+            );
         $mailer->send($message);
     }
 }

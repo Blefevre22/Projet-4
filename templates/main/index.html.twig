@@ -2,8 +2,9 @@
 	{% block title %}{{ parent() }}{% endblock %}
 {% block body %}
     {% for message in app.flashes('notice') %}
-		<div class="flash-notice">
-            {{ message }}
+		<div class="alert alert-info  alert-dismissible" role="alert" style="position: absolute; top:30px">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            {{message}}
 		</div>
     {% endfor %}
 	<div id="headerwrap">
@@ -19,6 +20,7 @@
 			</div><! --/row -->
 		</div> <!-- /container -->
 	</div><! --/headerwrap -->
+
 
 	<div class="container">
 		<div class="row centered mt mb">

@@ -4,17 +4,27 @@
     <meta charset="UTF-8">
 </head>
 <body>
-{# templates/emails/registration.html.twig #}
-<h3>You did it! You registered!</h3>
 
-Hi {{ name }}! You're successfully registered.
+<h3>Votre réservation est validée !</h3>
 
-{# example, assuming you have a route named "login" #}
+<p>Nous avons bien enregistré votre réservation du {{ booking.registrationDate|date('d/m/Y') }}</p>
 
+<p>Voici votre/vos billet/s</p>
 
-Thanks!
+<div>
+    {% for customer in booking.customer %}
+        <p>-----------------------------------------------------------</p>
+        <p><strong>Musée du Louvre</strong></p>
+        <p><strong>Date :</strong> {{ booking.registrationDate|date('d/m/Y') }}</p>
+        <p><strong>Nom :</strong> {{ customer.name }} Prénom : {{ customer.firstName }}</p>
+        <p><strong>Tarif :</strong> {{ customer.ticket }}</p>
+        {% if customer.reduced == true %}
+            <p>Avec réduction (présentez justificatif) </p>
+        {% endif %}
+        <p><strong>Tarif :</strong> {{ customer.price }} €</p>
+        <p>------------------------------------------------------------</p>
+    {% endfor %}
 
-{# Makes an absolute URL to the /images/logo.png file #}
-
+</div>
 </body>
 </html>
