@@ -18,6 +18,8 @@ class MainController extends Controller
      */
     public function index()
     {
+        $date = new \DateTime();
+        dump($date);
         //Création d'un objet Booking
         $booking = new Booking();
         //Appel de l'entity Manager

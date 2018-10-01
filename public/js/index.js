@@ -43,4 +43,12 @@ $(document).ready(function() {
             }
         });
     });
+    $('#booking').on("change", ".reduced", function () {
+        var element = this.id;
+        if($('#'+element+'_advice').length){
+        }else{
+            $('.checkbox').after("<p id="+element+"_advice>Merci d'apporter vote justificatif (étudiant, employé du musée, d’un service du Ministère de la Culture, militaire…)</p>");
+        }
+
+    });
 })

@@ -54,7 +54,8 @@ class CustomerType extends AbstractType
             ))
             ->add('reduced', CheckboxType::class, array(
                 'label' => 'Tarif réduit',
-                'required' => false
+                'required' => false,
+                'attr' => array('class' =>'reduced')
             ));
     }
     public function configureOptions(OptionsResolver $resolver)
