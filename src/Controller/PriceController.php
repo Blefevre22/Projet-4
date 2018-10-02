@@ -7,15 +7,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\PriceList;
+use App\Service\PriceRequest;
 
 class PriceController extends Controller
 {
     /**
      * @Route("/jquery-price", name="jquery-price")
      */
-    public function jqueryPrice(Request $request)
+    public function jqueryPrice(PriceRequest $priceRequest, Request $request)
     {
-        $data = $this->requestPrices($request->query->get('date'));
+        $data = $priceRequest->requestPrices($request->query->get('date'));
         return new JsonResponse(array('data' => $data));
     }
 

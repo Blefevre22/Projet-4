@@ -18,8 +18,6 @@ class MainController extends Controller
      */
     public function index()
     {
-        $date = new \DateTime();
-        dump($date);
         //Création d'un objet Booking
         $booking = new Booking();
         //Appel de l'entity Manager
@@ -122,6 +120,21 @@ class MainController extends Controller
             'description' => 'Example charge',
             'source' => $token,
         ]);
+        try{
+            $this->addFlash(
+                'notice',
+                'Votre réservation est enregistrée !'
+            );
+            $booking = $session->get('booking');
+            $this->sendMail($booking);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($booking);
+            $em->flush();
+            $session->clear();
+            return $this->redirectToRoute('main');
+        }catch(\Stripe\Error\Card $e){
+            return $this->redirectToRoute('refusedPayment');
+        }
         $this->addFlash(
             'notice',
             'Votre réservation est enregistrée !'
