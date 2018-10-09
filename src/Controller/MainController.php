@@ -36,8 +36,7 @@ class MainController extends Controller
         //Appel de la vue
         return $this->render('main/index.html.twig', [
             'form' => $form->createView(),
-            'disableDate' => $disableDate,
-            'toto' => 'toto'
+            'disableDate' => $disableDate
         ]);
     }
 
@@ -126,26 +125,15 @@ class MainController extends Controller
                 'Votre réservation est enregistrée !'
             );
             $booking = $session->get('booking');
-            $this->sendMail($booking);
             $em = $this->getDoctrine()->getManager();
             $em->persist($booking);
             $em->flush();
+            $this->sendMail($booking);
             $session->clear();
             return $this->redirectToRoute('main');
         }catch(\Stripe\Error\Card $e){
             return $this->redirectToRoute('refusedPayment');
         }
-        $this->addFlash(
-            'notice',
-            'Votre réservation est enregistrée !'
-        );
-        $booking = $session->get('booking');
-        $this->sendMail($booking);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($booking);
-        $em->flush();
-        $session->clear();
-        return $this->redirectToRoute('main');
     }
     public function sendMail($booking)
     {

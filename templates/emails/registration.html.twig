@@ -16,9 +16,10 @@
     {% for customer in booking.customer %}
         <p>-----------------------------------------------------------</p>
         <img src=https://media.glassdoor.com/sql/681218/mus%C3%A9e-du-louvre-squarelogo-1402486757309.png">
+        <p><strong>Code : </strong>{{ customer.id }}</p>
         <p><strong>Date :</strong> {{ booking.registrationDate|date('d/m/Y') }}</p>
-        <p><strong>Nom :</strong> {{ customer.name }} Prénom : {{ customer.firstName }}</p>
-        <p><strong>Tarif :</strong> {{ customer.ticket }}</p>
+        <p><strong>Nom :</strong> {{ customer.name }} <strong>Prénom :</strong> {{ customer.firstName }}</p>
+        <p><strong>Billet :</strong> {{ customer.ticket }}</p>
         {% if customer.reduced == true %}
             <p>Avec réduction (présentez justificatif) </p>
         {% endif %}

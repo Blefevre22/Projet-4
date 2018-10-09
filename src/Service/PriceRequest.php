@@ -29,4 +29,16 @@ class PriceRequest
         $price =  $this->em->getRepository(PriceList::class)->getPriceByBirthday($age);
         return $price['price'];
     }
+    public function reducedPrice($date, $reduced)
+    {
+        $tarif = $this->requestPrices($date);
+        if($reduced === 'true'){
+            if($tarif > 10){
+                $tarif = $tarif - 10;
+            }else{
+                $tarif = 0;
+            }
+        }
+        return $tarif;
+    }
 }

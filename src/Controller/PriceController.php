@@ -41,4 +41,14 @@ class PriceController extends Controller
         return new JsonResponse(array('data' => $response));
     }
 
+    /**
+     * @Route("/jquery-reduced", name="jquery-reduced")
+     */
+    public function jqueryReduced(PriceRequest $priceRequest, Request $request)
+    {
+        $reduced = $request->query->get('reduced');
+        $date = $request->query->get('date');
+        $data = $priceRequest->reducedPrice($date, $reduced);
+        return new JsonResponse(array('data' => $data));
+    }
 }
