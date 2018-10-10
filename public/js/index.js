@@ -2,7 +2,7 @@ $(document).ready(function() {
     //Ajout d'un ticket
     $('#add_ticket').insertBefore($('.btn-danger'))
     //Event sur l'input date de naissance
-    $('#booking').on("change", ".date", function () {
+    $('#booking').on("change", ".datepickerBirthday", function () {
         //Variables
         var birthDate = this.id,
             birth = $('#' + birthDate),
@@ -27,7 +27,8 @@ $(document).ready(function() {
     $('#booking').on("change", ".datepickerBooking", function () {
         //Variables
         var registration_date = $('#booking_registrationDate'),
-            halfDay = $('.radio');
+            Day = $('.radio');
+        console.log($('#booking_registrationDate'));
         //console.log(halfDay);
         //Methode ajax vers le ControllerPrice
         $.ajax({
@@ -35,17 +36,17 @@ $(document).ready(function() {
             method: 'GET',
             data: "date=" + registration_date.val(),
             success: function (data) {
-                //Réponse du controller, si date du jour et ap
+                //Réponse du controller, si date du jour et heure passée 14H
                 if (data['data'] === true) {
-                    $.each(halfDay, function () {
+                    $.each(Day, function () {
+                        //Si le bouton radio = journée
                         if(this['textContent'] === ' Journée'){
                             $( this ).hide();
-                        }else{
-                            $( '#booking_customer_0_ticket_1' ).attr('checked',true);
                         }
                     })
+                    //Sinon affiche bouton jour
                 }else{
-                    halfDay.each(function() {
+                    Day.each(function() {
                         if(this['textContent'] === ' Journée'){
                             $( this ).show();
                         }
@@ -54,21 +55,28 @@ $(document).ready(function() {
             }
         });
     });
+
+    //Event sur le bouton réduction
     $('#booking').on("change", ".reduced", function () {
+        //Variables
         var checkbox = $(this).parents('div')[0],
             booking = $(this).parents()[3].id,
             registration_date = $("#"+booking+'_birthDate').val(),
-            reduced = $('#'+booking+'_reduced').prop('checked');
+            reduced = $('#'+booking+'_reduced').prop('checked')
+        //Methode ajax vers le ControllerPrice
         $.ajax({
             url: 'jquery-reduced',
             method: 'GET',
             data: {'date':registration_date, 'reduced':reduced},
             success: function (data) {
+                //Retourne le prix en fonction de la réduction
                 $("#"+booking+"_tarif .prix" ).text(data['data']);
             }
         });
+        //Si le bouton est coché, affiche message
         if($('#'+booking+'_reduced').prop('checked') === true){
             $(checkbox).after("<div id="+booking+"_reduced_advice>Merci d'apporter vote justificatif (étudiant, employé du musée, d’un service du Ministère de la Culture, militaire…)</div>");
+            //Sinon le cache
         }else{
             $("#"+booking+"_reduced_advice").hide();
         }

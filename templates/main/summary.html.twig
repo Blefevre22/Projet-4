@@ -49,21 +49,28 @@
     </table>
     <div id="stripe-div">
         <form action="stripe-payment" method="POST">
-            <script
-                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                    data-key="pk_test_44k5XRB0qcj1dxVRM6gSo4yK"
-                    data-amount="{{ total }}00"
-                    data-name="Le Louvre"
-                    data-email = "{{ booking.email }}"
-                    data-description="Page de paiement"
-                    data-image="{{ asset('img/louvre.jpg') }}"
-                    data-locale="auto"
-                    data-currency="EUR"
-                    data-label="Paiement par CB"
-                    data-zip-code="false">
+            {% if total > 0 %}
+                <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_44k5XRB0qcj1dxVRM6gSo4yK"
+                        data-amount="{{ total }}00"
+                        data-name="Le Louvre"
+                        data-email = "{{ booking.email }}"
+                        data-description="Page de paiement"
+                        data-image="{{ asset('img/louvre.jpg') }}"
+                        data-locale="auto"
+                        data-currency="EUR"
+                        data-label="Paiement par CB"
+                        data-zip-code="false">
 
-            </script>
-            <input type="hidden" value="{{ total }}00" name="total" id="total">
+                </script>
+                <input type="hidden" value="{{ total }}00" name="total" id="total">
+            {% else %}
+                <div class='text-center'><input class="btn btn-success" id="valid" type="submit" name="validFree" value="Valider"></div>
+            {% endif %}
         </form>
     </div>
+
+
+
 {% endblock %}

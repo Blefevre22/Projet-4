@@ -16,7 +16,9 @@ class PriceController extends Controller
      */
     public function jqueryPrice(PriceRequest $priceRequest, Request $request)
     {
+        //Execute une requete via service pour récupérer le tarif en fonction de la date
         $data = $priceRequest->requestPrices($request->query->get('date'));
+        //Retourne le résultat à la page
         return new JsonResponse(array('data' => $data));
     }
 
@@ -25,11 +27,15 @@ class PriceController extends Controller
      */
     public function jqueryTicket(Request $request)
     {
+        //Récupère la date
         $data = $request->query->get('date');
+        //Formatage de la date pour correspondre à la BDD
         $data = str_replace('/', '-', $data);
         $registration = new \DateTime($data);
         $today = new \DateTime();
+        //Si la date du jour et de réservation est identique
         if($today->format('d-m-y') === $registration->format('d-m-y')){
+            //Si l'heure du jour est supérieur à 14H
             if($today->format('H') > '14'){
                 $response = true;
             }else{
@@ -38,6 +44,7 @@ class PriceController extends Controller
         }else{
             $response = false;
         }
+        //Retourne le résultat à la page
         return new JsonResponse(array('data' => $response));
     }
 
@@ -46,9 +53,12 @@ class PriceController extends Controller
      */
     public function jqueryReduced(PriceRequest $priceRequest, Request $request)
     {
+        //Récupère les informations de la page
         $reduced = $request->query->get('reduced');
         $date = $request->query->get('date');
+        //Execute une requete via service pour récupérer le tarif en fonction des parametres
         $data = $priceRequest->reducedPrice($date, $reduced);
+        //Retourne le résultat à la page
         return new JsonResponse(array('data' => $data));
     }
 }
