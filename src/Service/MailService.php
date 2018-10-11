@@ -12,12 +12,13 @@ class MailService
 {
     private $mailer;
     private $templating;
-
+    //Appel des bundle
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $templating)
     {
         $this->mailer     = $mailer;
         $this->templating = $templating;
     }
+    //Envoi d'un mail d'information sur la réservation
     public function sendMail($booking)
     {
         $message = (new \Swift_Message('Louvre : votre réservation'))

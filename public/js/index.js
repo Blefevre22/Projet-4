@@ -1,29 +1,8 @@
 $(document).ready(function() {
-    //Ajout d'un ticket
+    //Ajout du bouton d'ajout de ticket
     $('#add_ticket').insertBefore($('.btn-danger'))
-    //Event sur l'input date de naissance
-    $('#booking').on("change", ".datepickerBirthday", function () {
-        //Variables
-        var birthDate = this.id,
-            birth = $('#' + birthDate),
-            booking = $(this).parent().parent().attr('id'),
-            reduced = $('#'+booking+'_reduced').prop('checked');
-        //Methode ajax vers le ControllerPrice
-        $.ajax({
-            url: 'jquery-reduced',
-            method: 'GET',
-            data: {'date':birth.val(), 'reduced':reduced},
-            success: function (data) {
-                //Si un tarif est déja affiché, le supprimer
-                if ($('#' + booking + ' .tarif').show()) {
-                    $('#' + booking + '_tarif ').remove();
-                }
-                //Affiche le tarif
-                $('#' + booking + ' .checkbox').after("<div id="+booking+"_tarif><p>Tarif: <span class='prix'>"+ data.data + '</span>€</p></div>');
-            }
-        })
-    });
-    //Event sur la date de réservation
+
+    //Event sur l'input date de réservation
     $('#booking').on("change", ".datepickerBooking", function () {
         //Variables
         var registration_date = $('#booking_registrationDate'),
@@ -55,6 +34,28 @@ $(document).ready(function() {
             }
         });
     });
+    //Event sur l'input date de naissance
+    $('#booking').on("change", ".datepickerBirthday", function () {
+        //Variables
+        var birthDate = this.id,
+            birth = $('#' + birthDate),
+            booking = $(this).parent().parent().attr('id'),
+            reduced = $('#'+booking+'_reduced').prop('checked');
+        //Methode ajax vers le ControllerPrice
+        $.ajax({
+            url: 'jquery-price',
+            method: 'GET',
+            data: {'date':birth.val(), 'reduced':reduced},
+            success: function (data) {
+                //Si un tarif est déja affiché, le supprimer
+                if ($('#' + booking + ' .tarif').show()) {
+                    $('#' + booking + '_tarif ').remove();
+                }
+                //Affiche le tarif
+                $('#' + booking + ' .checkbox').after("<div id="+booking+"_tarif><p>Tarif: <span class='prix'>"+ data.data + '</span>€</p></div>');
+            }
+        })
+    });
 
     //Event sur le bouton réduction
     $('#booking').on("change", ".reduced", function () {
@@ -65,7 +66,7 @@ $(document).ready(function() {
             reduced = $('#'+booking+'_reduced').prop('checked')
         //Methode ajax vers le ControllerPrice
         $.ajax({
-            url: 'jquery-reduced',
+            url: 'jquery-price',
             method: 'GET',
             data: {'date':registration_date, 'reduced':reduced},
             success: function (data) {

@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+	{% block title %}{{ parent() }}{% endblock %}
+    {% block nav %}
+		<li><a href="/">Home</a></li>
+		<li class="active"><a href="/location">Itinéraire Musée</a></li>
+		<li><a href="/contact">Contacter</a></li>
+    {% endblock %}
+{% block body %}
+	<div id="headerwrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+					<div class="col-lg-4 col-lg-offset-1">
+						<h4>Musée du</h4>
+					</div>
+					<h1>LOUVRE</h1>
+					<h4>le plus grand musée d'art et d'antiquités au monde</h4>
+				</div>
+			</div><! --/row -->
+		</div> <!-- /container -->
+	</div><! --/headerwrap -->
+	<div class="'container">
+		<div class="row">
+			<div class="col-lg-5 col-lg-offset-5">
+				<H3>Informations</H3>
+			</div>
+		</div>
+		<div class="col-lg-5 col-lg-offset-4">
+			<p><strong>En métro :</strong> lignes 1 et 7, station "Palais-Royal / Musée du Louvre"; ligne 14, station "Pyramides"</p>
+
+			<p><strong>En bus : </strong>bus n° 21, 24, 27, 39, 48, 68, 69, 72, 81, 95</p>
+
+			<p><strong>Stations Velib' à proximité du musée :</strong></p>
+			<p>n°1015 : 2 place A. Malraux</p>
+			<p>n°1023 : 165 rue Saint-Honoré</p>
+			<p>n°1014 : 5 rue de l’Echelle</p>
+			<p>n°1013 : 186 rue Saint-Honoré</p>
+
+			<p><strong>En voiture :</strong> un parc de stationnement souterrain est accessible par l'avenue du Général-Lemonnier, tous les jours de 7 h 00 à 23 h 00.</p>
+
+			<p><strong>En Batobus :</strong> Escale "Louvre", quai François-Mitterrand</p>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-5 col-lg-offset-4">
+				<div id="map"></div>
+			</div>
+		</div>
+	</div>
+	<script src="{{ asset('js/googleMapApi.js') }}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1MIFGdPDinakCspb2_Xqppf8raZD9ksk&callback=initMap"
+			async defer>
+	</script>
+
+{% endblock %}

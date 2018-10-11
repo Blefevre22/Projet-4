@@ -6,25 +6,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Entity\PriceList;
+use Symfony\Component\HttpFoundation\Session\Session;
 use App\Service\PriceRequest;
+use App\Service\MailService;
+use App\Service\StripeService;
 
 class PriceController extends Controller
 {
     /**
-     * @Route("/jquery-price", name="jquery-price")
-     */
-    public function jqueryPrice(PriceRequest $priceRequest, Request $request)
-    {
-        //Execute une requete via service pour récupérer le tarif en fonction de la date
-        $data = $priceRequest->requestPrices($request->query->get('date'));
-        //Retourne le résultat à la page
-        return new JsonResponse(array('data' => $data));
-    }
-
-    /**
      * @Route("/jquery-ticket", name="jquery-ticket")
      */
+    //Vérification ticket journée/demi-journée
     public function jqueryTicket(Request $request)
     {
         //Récupère la date
@@ -49,9 +41,10 @@ class PriceController extends Controller
     }
 
     /**
-     * @Route("/jquery-reduced", name="jquery-reduced")
+     * @Route("/jquery-price", name="jquery-price")
      */
-    public function jqueryReduced(PriceRequest $priceRequest, Request $request)
+    //Vérification du tarif
+    public function jqueryPrice(PriceRequest $priceRequest, Request $request)
     {
         //Récupère les informations de la page
         $reduced = $request->query->get('reduced');
@@ -61,4 +54,37 @@ class PriceController extends Controller
         //Retourne le résultat à la page
         return new JsonResponse(array('data' => $data));
     }
+
+    /**
+     * @Route("/stripe-payment", name="stripe-payment")
+     */
+    //Paiement et ajout à la BDD
+    public function stripePayment(StripeService $stripeService, MailService $mailService, Request $request){
+        $session = new Session();
+        //Si le total n'est pas à 0
+        if(empty($request->get('validFree'))){
+            //Service de paiement de la réservation
+            $stripeService->payment($_POST['stripeToken'], $request->get('total'));
+        }
+        try{
+            $this->addFlash(
+                'notice',
+                'Votre réservation est enregistrée !'
+            );
+            $booking = $session->get('booking');
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($booking);
+            $em->flush();
+            $mailService->sendMail($booking);
+            $session->clear();
+            return $this->redirectToRoute('main');
+        }catch(\Stripe\Error\Card $e){
+            $this->addFlash(
+                'notice',
+                'Paiement refusé, merci de renouveller votre réservation.'
+            );
+            return $this->redirectToRoute('main');
+        }
+    }
+
 }

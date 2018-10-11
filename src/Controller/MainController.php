@@ -2,16 +2,13 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Booking;
 use App\Service\BddPrepare;
 use App\Service\DatesService;
-use App\Service\MailService;
-use App\Service\StripeService;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\BookingType;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Session\Session;
 use App\Service\PriceRequest;
 
 class MainController extends Controller
@@ -23,11 +20,8 @@ class MainController extends Controller
     {
         //Création d'un objet Booking
         $booking = new Booking();
-        //Appel de l'entity Manager
-        $em = $this->getDoctrine()->getManager();
-        //Vérification des journées à 1000 réservations
-        $checkBookings =  $em->getRepository(Booking::class)->getCheckLimitBooking();
-        $disableDate = $datesService->closeDays($checkBookings);
+        //Récupère les jours de fermeture, fériés et à plus de 1000 réservations
+        $disableDate = $datesService->closeDays();
         //Création du formulaire basé sur Booking
         $form = $this->createForm(BookingType::class, $booking, array(
             'action' => $this->generateUrl('summary')
@@ -67,46 +61,19 @@ class MainController extends Controller
             }
         }
     }
-
     /**
-     * @Route("/jquery-checkDay", name="jquery-checkDay")
+     * @Route("/location", name="location")
      */
-    public function jqueryCheckDay()
+    public function location()
     {
-        $em = $this->getDoctrine()->getManager();
-        $checkBooking =  $em->getRepository(Booking::class)->getCheckLimitBooking();
-        return $checkBooking;
+        return $this->render('main/location.html.twig');
     }
 
     /**
-     * @Route("/stripe-payment", name="stripe-payment")
+     * @Route("/contact", name="contact")
      */
-    public function stripePayment(StripeService $stripeService, MailService $mailService, Request $request){
-        $session = new Session();
-        //Si le total n'est pas à 0
-        if(empty($request->get('validFree'))){
-            //Service de paiement de la réservation
-            $stripeService->payment($_POST['stripeToken'], $request->get('total'));
-        }
-        try{
-            $this->addFlash(
-                'notice',
-                'Votre réservation est enregistrée !'
-            );
-            $booking = $session->get('booking');
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($booking);
-            $em->flush();
-            $mailService->sendMail($booking);
-            $session->clear();
-            return $this->redirectToRoute('main');
-        }catch(\Stripe\Error\Card $e){
-            $this->addFlash(
-                'notice',
-                'Paiement refusé, merci de renouveller votre réservation.'
-            );
-            return $this->redirectToRoute('main');
-        }
+    public function contact()
+    {
+        return $this->render("main/contact.html.twig");
     }
-
 }

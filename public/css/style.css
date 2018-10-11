@@ -120,7 +120,6 @@ h1, h2, h3, h4, h5, h6 {
     -o-background-size: cover;
     background-size: cover;
 }
-
 #headerwrap h1 {
 	color:#ffffff;
 	padding-top: 10px;
@@ -227,4 +226,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .gallery img:hover {
 	opacity: 0.4;
+}
+
+#map {
+	height: 300px;
 }

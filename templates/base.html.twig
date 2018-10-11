@@ -34,9 +34,8 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="#works">Works</a></li>
+                {% block nav %}
+                {% endblock %}
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -45,9 +44,11 @@
 {% endblock %}
 </body>
 <footer>
+    <!-- Projet d'ajout des réseaux sociaux-->
     <div id="social">
         <div class="container">
             <div class="row centered">
+                <!--
                 <div class="col-lg-2">
                     <a href="#"><i class="fa fa-dribbble"></i></a>
                 </div>
@@ -66,7 +67,7 @@
                 <div class="col-lg-2">
                     <a href="#"><i class="fa fa-tumblr"></i></a>
                 </div>
-
+                -->
             </div><! --/row -->
         </div><! --/container -->
     </div><! --/social -->
