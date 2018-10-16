@@ -216,8 +216,17 @@ h1, h2, h3, h4, h5, h6 {
     background-size: cover;
 }
 
+.tarif{
+	background-color: dimgray;
+	width: 15%;
+	margin: auto;
+	border-radius: 5px 5px;
+	color: white;
+	font-weight: bold;
+}
+.prix{
 
-
+}
 
 /* Gallery */
 .gallery {
@@ -230,4 +239,79 @@ h1, h2, h3, h4, h5, h6 {
 
 #map {
 	height: 300px;
+}
+
+@media (max-width: 390px) {
+	#headerwrap {
+		width: 390px;
+	}
+	.button_radio{
+		max-width: 50%;
+		margin: auto;
+	}
+	.checkbox{
+		max-width: 40%;
+		margin: auto;
+	}
+	#social{
+		width: 390px;
+	}
+	.table-fill{
+		width: 100px
+	}
+}
+
+@media (max-width: 770px) {
+	.button_radio{
+		max-width: 60%;
+		margin: auto;
+	}
+	.checkbox{
+		max-width: 40%;
+		margin: auto;
+	}
+}
+@media (min-width: 770px) {
+	.button_radio{
+		max-width:40%;
+		margin: auto;
+	}
+	.checkbox{
+		max-width: 35%;
+		margin: auto;
+	}
+}
+
+/* Style the navbar */
+#navbar {
+	overflow: hidden;
+
+}
+
+/* Navbar links */
+#navbar a {
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px;
+	text-decoration: none;
+}
+
+/* Page content */
+.content {
+	padding: 16px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: #333;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+	padding-top: 60px;
 }

@@ -50,7 +50,7 @@ function datePicker (dates) {
         isRTL: false,
         showMonthAfterYear: false,
         yearSuffix: '',
-        maxDate: '+12M +0D',
+        yearRange : '1920:+0y',
         numberOfMonths: 1,
         showButtonPanel: true
     });

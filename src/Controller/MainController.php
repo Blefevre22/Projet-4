@@ -36,7 +36,7 @@ class MainController extends Controller
     /**
      * @Route("/summary", name="summary")
      */
-    public function summary(PriceRequest $priceRequest, BddPrepare $bddPrepare, Request $request)
+    public function summary(PriceRequest $priceRequest, BddPrepare $bddPrepare, DatesService $datesService, Request $request)
     {
         //Si le parametre request est une méthode POST
         if ($request->isMethod('POST')) {
@@ -46,6 +46,7 @@ class MainController extends Controller
             $form->handleRequest($request);
             //Si le formulaire est valide
             if ($form->isValid()) {
+                $limitBooking = $datesService->limitBooking($booking->getRegistrationDate(), $booking->getcustomer());
                 //Boucle sur chaque client
                 foreach ($booking->getCustomer() as $customer) {
                     //Service de vérification de réduction et de recherche de tarif
@@ -56,7 +57,8 @@ class MainController extends Controller
                 //Methode de validation des tickets
                 //Appel de la vue
                 return $this->render('main/summary.html.twig', [
-                    'booking' => $booking
+                    'booking' => $booking,
+                    'limitBooking' => $limitBooking
                 ]);
             }
         }

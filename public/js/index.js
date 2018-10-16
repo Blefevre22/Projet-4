@@ -52,7 +52,7 @@ $(document).ready(function() {
                     $('#' + booking + '_tarif ').remove();
                 }
                 //Affiche le tarif
-                $('#' + booking + ' .checkbox').after("<div id="+booking+"_tarif><p>Tarif: <span class='prix'>"+ data.data + '</span>€</p></div>');
+                $('#' + booking + ' .checkbox').after("<div id="+booking+"_tarif class='tarif'><p>Tarif: <span class='prix'>"+ data.data + '</span>€</p></div>');
             }
         })
     });
@@ -76,7 +76,7 @@ $(document).ready(function() {
         });
         //Si le bouton est coché, affiche message
         if($('#'+booking+'_reduced').prop('checked') === true){
-            $(checkbox).after("<div id="+booking+"_reduced_advice>Merci d'apporter vote justificatif (étudiant, employé du musée, d’un service du Ministère de la Culture, militaire…)</div>");
+            $(checkbox).after("<div id="+booking+"_reduced_advice><strong>Merci d'apporter votre justificatif (étudiant, employé du musée, d’un service du Ministère de la Culture, militaire…)</strong></div>");
             //Sinon le cache
         }else{
             $("#"+booking+"_reduced_advice").hide();

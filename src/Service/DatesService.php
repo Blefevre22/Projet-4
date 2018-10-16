@@ -34,4 +34,20 @@ class DatesService
         }
         return $disableDate;
     }
+//Récupère le nombre de réservation et et comptabilise les nouvelles réservations
+    public function limitBooking($registration, $customers)
+    {
+        $registration = str_replace('/','-',$registration);
+        $registration = new \DateTime($registration);
+        $nbCustomers = count($customers);
+        $checkBooking = $this->em->getRepository(Booking::class)->getCheckCounter($registration);
+        $totalBooking = $nbCustomers + $checkBooking['counter'];
+        if($totalBooking > 1000 ){
+            $exceededbooking = $totalBooking - 1000;
+            $validBooking = ['validation' =>false, 'exceededBooking' => $exceededbooking];
+        }else{
+            $validBooking = ['validation' =>true];
+        }
+        return $validBooking;
+    }
 }
