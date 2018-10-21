@@ -69,7 +69,7 @@ class PriceController extends Controller
         try{
             $this->addFlash(
                 'notice',
-                'Votre réservation est enregistrée !'
+                'Votre réservation est enregistrée !, vos billets ont été envoyés par email.'
             );
             $booking = $session->get('booking');
             $em = $this->getDoctrine()->getManager();

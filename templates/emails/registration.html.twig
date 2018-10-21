@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <h2>Musée du Louvre</h2>
 
 <h3>Votre réservation est validée !</h3>
@@ -12,21 +13,29 @@
 
 <p>Voici votre/vos billet/s</p>
 
-<div>
-    {% for customer in booking.customer %}
-        <p>-----------------------------------------------------------</p>
-        <img src=https://media.glassdoor.com/sql/681218/mus%C3%A9e-du-louvre-squarelogo-1402486757309.png">
-        <p><strong>Code : </strong>{{ customer.id }}</p>
-        <p><strong>Date :</strong> {{ booking.registrationDate|date('d/m/Y') }}</p>
-        <p><strong>Nom :</strong> {{ customer.name }} <strong>Prénom :</strong> {{ customer.firstName }}</p>
-        <p><strong>Billet :</strong> {{ customer.ticket }}</p>
-        {% if customer.reduced == true %}
-            <p>Avec réduction (présentez justificatif) </p>
-        {% endif %}
-        <p><strong>Tarif :</strong> {{ customer.price }} €</p>
-        <p>------------------------------------------------------------</p>
-    {% endfor %}
 
-</div>
+{% for customer in booking.customer %}
+    <div style ="background-image: url('https://preview.ibb.co/bXGhBL/ticket.png'); background-repeat: no-repeat;">
+        <div style="display: inline-block; vertical-align:top; height: 225px; width: 170px; padding-left: 10px;">
+            <p style="word-wrap: break-word;"><strong>Code : </strong>{{ customer.id }}</p>
+        </div>
+        <div style="display: inline-block; height: 100px;">
+            <span style="margin-left: 20px; padding-top: 10px; padding-right: 100px;"><img src="https://image.ibb.co/iNFB5f/louvre.png" alt="louvre" border="0" style="width: 150px"></span>
+            <p><strong>Date :</strong> {{ booking.registrationDate|date('d/m/Y') }}</p>
+            <p><strong>Nom :</strong> {{ customer.name }}</p>
+            <p><strong>Prénom :</strong> {{ customer.firstName }}</p>
+            {% if customer.reduced == true %}
+                <p><strong>Avec réduction (présentez justificatif)</strong> </p>
+            {% endif %}
+        </div>
+        <div style="display: inline-block; height: 100px;">
+            <p><strong>Billet :</strong> {{ customer.ticket }}</p>
+
+            <p><strong>Tarif :</strong> {{ customer.price }} €</p>
+        </div>
+    </div>
+{% endfor %}
+
+
 </body>
 </html>

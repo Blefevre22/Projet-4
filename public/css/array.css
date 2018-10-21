@@ -1,13 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
 
-body {
-
-    font-family: "Roboto", helvetica, arial, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    text-rendering: optimizeLegibility;
-}
-
 div.table-title {
     display: block;
     margin: auto;
@@ -155,4 +147,23 @@ caption{
     font-family: "Roboto", helvetica, arial, sans-serif;
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
     text-transform:uppercase;
+}
+
+@media (max-width: 630px) {
+    td {
+        font-size:12px;
+    }
+    th {
+        font-size:12px;
+    }
+}
+
+
+@media (max-width: 470px) {
+    td {
+        padding: unset;
+    }
+    th {
+        padding: unset;
+    }
 }

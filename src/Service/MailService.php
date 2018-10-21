@@ -7,6 +7,7 @@
  */
 
 namespace App\Service;
+use Swift_Attachment;
 
 class MailService
 {

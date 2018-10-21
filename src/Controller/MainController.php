@@ -46,7 +46,8 @@ class MainController extends Controller
             $form->handleRequest($request);
             //Si le formulaire est valide
             if ($form->isValid()) {
-                $limitBooking = $datesService->limitBooking($booking->getRegistrationDate(), $booking->getcustomer());
+                //Service de vérification de la date saisie par le visiteur
+                $checkData = $datesService->checkDateAndBooking($booking->getRegistrationDate(), $booking->getcustomer());
                 //Boucle sur chaque client
                 foreach ($booking->getCustomer() as $customer) {
                     //Service de vérification de réduction et de recherche de tarif
@@ -58,7 +59,7 @@ class MainController extends Controller
                 //Appel de la vue
                 return $this->render('main/summary.html.twig', [
                     'booking' => $booking,
-                    'limitBooking' => $limitBooking
+                    'limitBooking' => $checkData
                 ]);
             }
         }

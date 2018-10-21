@@ -5,9 +5,27 @@
     <link href="{{ asset('css/stripe.css') }}" rel="stylesheet">
     <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
 {% endblock %}
+    {% block nav %}
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/location">Itinéraire Musée</a></li>
+        <li><a href="/contact">Contacter</a></li>
+    {% endblock %}
 {% block body %}
+    <div id="headerwrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <div class="col-lg-4 col-lg-offset-1">
+                        <h4>Musée du</h4>
+                    </div>
+                    <h1>LOUVRE</h1>
+                    <h4>le plus grand musée d'art et d'antiquités au monde</h4>
+                </div>
+            </div><! --/row -->
+        </div> <!-- /container -->
+    </div><! --/headerwrap -->
     <div style="margin-top:150px"></div>
-    {% if limitBooking.validation == true %}
+    {% if limitBooking.validation == 'valid' %}
         <div class="table-title">
             <h3>Récapitulatif avant paiement</h3>
         </div>
@@ -71,12 +89,19 @@
                 {% endif %}
             </form>
         </div>
-    {% else %}
+    {% elseif limitBooking.validation == 'maxBooking'%}
         <div class='text-center'>
             <h3>Limite de réservation atteinte !</h3>
             <p>Nous ne pouvons malheureusement pas valider votre réservation. Vous dépassez de <strong>{{ limitBooking.exceededBooking }}</strong> réservation, le nombre maximum de réservation pour ce jour.</p>
             <p>Merci de cliquer sur le lien suivant <a href="/"><strong>>>>lien<<<</strong></a>, pour effectuer une nouvelle réservation.</p>
             <p>Nous vous suggérons de choisir une date différente ou si possible de réduire le nombre de réservation de <strong>{{ limitBooking.exceededBooking }}</strong> pour le <strong>{{ booking.registrationDate|date('d/m/Y') }}</strong></p>
+        </div>
+    {% elseif limitBooking.validation == 'badDay' %}
+        <div class='text-center'>
+            <h3>Mauvaise date de réservation !</h3>
+            <p>Nous ne pouvons malheureusement pas valider votre réservation. Vous avez séléctionné une mauvaise date de réservation</p>
+            <p>Merci de cliquer sur le lien suivant <a href="/"><strong>>>>lien<<<</strong></a>, pour effectuer une nouvelle réservation.</p>
+            <p><strong>Nous vous suggérons de choisir une date différente. Aidez-vous du calendrier, seuls les jours disponibles sont affichés.</strong></p>
         </div>
     {% endif %}
 {% endblock %}
