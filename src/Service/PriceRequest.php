@@ -35,10 +35,8 @@ class PriceRequest
         return $price['price'];
     }
     //Méthode pour définir le prix avec réduction
-    public function reducedPrice($date, $reduced)
+    public function reducedPrice($reduced, $tarif)
     {
-        //Appel de la méthode de récupération de tarif
-        $tarif = $this->requestPrices($date);
         //Si réduction coché
         if($reduced === true OR $reduced === 'true'){
             //Si tarif supérieur à 10€

@@ -7,26 +7,41 @@
  */
 
 namespace App\tests\Service;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\PriceList;
-use PHPUnit\Framework\TestCase;
-
-class PriceRequestTest extends TestCase
+use App\Service\DatesService;
+use App\Service\PriceRequest;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+//Séquence de test unitaire
+class PriceRequestTest extends KernelTestCase
 {
-    //Méthode pour définir le prix avec réduction
-    public function reducedPrice('10/10/2018', true)
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $entityManager;
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp()
     {
-        //Appel de la méthode de récupération de tarif
-        $tarif = $this->requestPrices($date);
-        //Si réduction coché
-        if($reduced === true OR $reduced === 'true'){
-            //Si tarif supérieur à 10€
-            if($tarif > 10){
-                $tarif = $tarif - 10;
-            }else{
-                $tarif = 0;
-            }
-        }
-        return $tarif;
+        $kernel = self::bootKernel();
+
+        $this->entityManager = $kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+    }
+    //Test du calcul de la réduction de tarif
+    public function testReducedPrice()
+    {
+        $priceRequest = new PriceRequest($this->entityManager);
+        $tarif = $priceRequest->reducedPrice(true, "16");
+        $this->assertEquals(6, $tarif);
+    }
+    //Test de vérification du jour choisi par le visiteur, renvoi badDay si jour de fermeture du musée
+    public function testCheckDate()
+    {
+        $datesService = new DatesService($this->entityManager);
+        $date = $datesService->checkDate('30/10/2018');
+        $this->assertEquals('badDay', $date['validation']);
     }
 }

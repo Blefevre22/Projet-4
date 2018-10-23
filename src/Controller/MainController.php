@@ -50,8 +50,9 @@ class MainController extends Controller
                 $checkData = $datesService->checkDateAndBooking($booking->getRegistrationDate(), $booking->getcustomer());
                 //Boucle sur chaque client
                 foreach ($booking->getCustomer() as $customer) {
+                    $bddPrice = $priceRequest->requestPrices($customer->getBirthDate());
                     //Service de vérification de réduction et de recherche de tarif
-                    $price = $priceRequest->reducedPrice($customer->getBirthDate(), $customer->getReduced());
+                    $price = $priceRequest->reducedPrice($customer->getReduced(), $bddPrice);
                     $customer->setPrice($price);
                 }
                 $bddPrepare->modelizeBookingAndSession($booking);
